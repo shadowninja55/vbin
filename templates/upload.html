@@ -12,15 +12,17 @@
 			import {CodeJar} from "https://medv.io/codejar/codejar.js"
 			let editor = document.querySelector("#editor")
 			let jar = new CodeJar(editor, e => Prism.highlightElement(e))
-			jar.updateCode("")
 
+      jar.updateCode("@content")
 			editor.focus()
 		</script>
 	</head>
 	<body class="has-text-centered">
 		<section class="section field is-grouped has-background-info p-5">
 			<div class="control">
-				<button class="button is-rounded has-text-dark">upload</button>
+				<button class="button is-rounded has-text-dark">
+					upload
+				</button>
 			</div>
 			<div class="control is-expanded">
 				<input class="input is-rounded" disabled>
