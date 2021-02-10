@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		@js "/static/js/prism.js"
-		@css "/static/css/prism.css"
+		@js "/static/prism.js"
+		@css "/static/prism.css"
 		@css "https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.2/css/bulma.min.css"
 
 		<script type="module">
@@ -19,7 +19,6 @@
 		<script>
 			// submit
 			function uploadCode() {
-				document.getElementById("url").classList.add("is-loading")
 				content = window.jar.toString()
 
 				fetch("/api/upload", {

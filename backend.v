@@ -148,9 +148,8 @@ fn (mut app App) api_upload() vweb.Result {
 }
 
 pub fn (mut app App) init_once() {
-	app.serve_static("/static/js/prism.js", "static/js/prism.js", "text/javascript")
-	app.serve_static("/static/css/prism.css", "static/css/prism.css", "text/css")
-	app.serve_static("/static/css/bulma.css", "static/css/bulma.min.css", "text/css")
+	app.serve_static("/static/prism.js", "static/prism.js", "text/javascript")
+	app.serve_static("/static/prism.css", "static/prism.css", "text/css")
 	app.handle_static("templates")
 
 	app.db = sqlite.connect("db/vbin.sqlite") or {
