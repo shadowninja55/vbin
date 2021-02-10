@@ -123,9 +123,9 @@ fn (mut app App) api_fetch() vweb.Result {
 [post]
 ["/api/upload"]
 fn (mut app App) api_upload() vweb.Result {
-	content := app.form["content"]
+	content := app.form["content"].replace(r"`", r"\`")
 
-	if _unlikely_(content == "") {
+	if content == "" {
 		return app.text("no content was supplied for the upload")
 	}
 
