@@ -27,7 +27,8 @@ fn cleanup_uploads() {
 			panic("vbin.sqlite not found!")
 		}
 
-		db.exec("UPDATE Upload SET dead = 1 WHERE created <= datetime('now', '-24 hours')")
+		db.exec("UPDATE Upload SET dead = 1 WHERE 
+			created <= datetime('now', '-24 hours')")
 
 		dead_rows := sql db {
 			select from Upload where dead == 1
@@ -70,6 +71,12 @@ fn gen_code(db sqlite.DB) string {
 	}
 
 	return ""
+}
+
+[get]
+["/"]
+fn (mut app App) index() vweb.Result {
+	return $vweb.html()
 }
 
 [get]
@@ -124,6 +131,8 @@ fn (mut app App) upload() vweb.Result {
 }
 
 pub fn (mut app App) init_once() {
+	app.handle_static("templates")
+
 	app.db = sqlite.connect("db/vbin.sqlite") or {
 		panic("vbin.sqlite not found!") 
 	}

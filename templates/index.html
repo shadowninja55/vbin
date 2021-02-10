@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="index/prism.js"></script>
+		<link rel="stylesheet" href="index/prism.css">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+
+		<script type="module">
+			const Prism = window.Prism
+			Prism.plugins.customClass.prefix("pr-")
+
+			import {CodeJar} from "https://medv.io/codejar/codejar.js"
+			let editor = document.querySelector("#editor")
+			let jar = new CodeJar(editor, e => Prism.highlightElement(e))
+
+			editor.focus()
+		</script>
+	</head>
+	<body class="has-text-centered">
+		<section class="section field is-grouped has-background-info p-5">
+			<div class="control">
+				<button class="button is-rounded has-text-dark">
+					upload
+				</button>
+			</div>
+			<div class="control is-expanded">
+				<input class="input is-rounded" disabled>
+			</div>
+		</section>
+		<pre class="editor-pre line-numbers m-4"><code id="editor" class="language-v is-size-4"></code></pre>
+	</body>
+</html
