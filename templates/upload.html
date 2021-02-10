@@ -11,23 +11,44 @@
 
 			import {CodeJar} from "https://medv.io/codejar/codejar.js"
 			let editor = document.querySelector("#editor")
-			let jar = new CodeJar(editor, e => Prism.highlightElement(e))
+			window.jar = new CodeJar(editor, e => Prism.highlightElement(e))
 
-      jar.updateCode("@content")
+      window.jar.updateCode(`@content`)
 			editor.focus()
+		</script>
+		<script>
+			// submit
+			function uploadCode() {
+				document.getElementById("url").classList.add("is-loading")
+				content = window.jar.toString()
+
+				fetch("/api/upload", {
+						method: "post",
+						body: "content=" + content
+				}).then(resp => {
+					if (resp.ok) { return resp.text() } else { throw "post request failed" }
+				})
+				.then(code => {
+					window.location = "/uploads/" + code
+				})
+			}
 		</script>
 	</head>
 	<body class="has-text-centered">
 		<section class="section field is-grouped has-background-info p-5">
 			<div class="control">
-				<button class="button is-rounded has-text-dark">
+				<button class="button is-rounded has-text-dark" onclick="uploadCode()">
 					upload
 				</button>
 			</div>
 			<div class="control is-expanded">
-				<input class="input is-rounded" disabled>
+				<input id="url" class="input is-rounded" readonly>
 			</div>
 		</section>
 		<pre class="editor-pre line-numbers m-4"><code id="editor" class="language-v is-size-4"></code></pre>
+	
+		<script>
+			document.getElementById("url").setAttribute("value", window.location)
+		</script>
 	</body>
 </html

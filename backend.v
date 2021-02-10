@@ -106,7 +106,7 @@ fn (mut app App) upload(code string) vweb.Result {
 		return app.text(err)
 	}
 
-	content := res
+	content := vweb.RawHtml(res)
 	return $vweb.html()
 }
 
