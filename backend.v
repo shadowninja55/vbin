@@ -123,7 +123,10 @@ fn (mut app App) api_fetch() vweb.Result {
 [post]
 ["/api/upload"]
 fn (mut app App) api_upload() vweb.Result {
-	content := app.form["content"].replace(r"`", r"\`")
+	content := app.form["content"]
+		.replace("\\", "\\\\")
+		.replace("`", "\\`")
+		.replace(r"$", r"\\$")
 
 	if content == "" {
 		return app.text("no content was supplied for the upload")
@@ -163,5 +166,5 @@ pub fn (mut app App) init_once() {
 }
 
 fn main() {
-	vweb.run<App>(80)
+	vweb.run<App>(5678)
 }
