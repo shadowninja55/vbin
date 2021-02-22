@@ -45,7 +45,7 @@ fn cleanup_uploads() {
 			delete from Upload where dead == 1
 		}
 
-		time.sleep(3600)
+		time.wait(time.hour)
 	}
 }
 
@@ -153,7 +153,7 @@ fn (mut app App) api_upload() vweb.Result {
 pub fn (mut app App) init_once() {
 	app.serve_static("/static/prism.js", "static/prism.js", "text/javascript")
 	app.serve_static("/static/prism.css", "static/prism.css", "text/css")
-	app.handle_static("templates")
+	app.handle_static("templates", true)
 
 	app.db = sqlite.connect("db/vbin.sqlite") or {
 		panic("vbin.sqlite not found!") 
